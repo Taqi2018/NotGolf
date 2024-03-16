@@ -1,0 +1,54 @@
+{
+    "name": "InputHub",
+    "maps": [
+        {
+            "name": "BallSwipe ",
+            "id": "9719ba67-ef8a-4e95-a2fd-7aaa70519ca2",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "83ef6589-7c64-4439-8f54-fea95606d007",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TapPosition",
+                    "type": "Value",
+                    "id": "0db80768-4bdb-42f5-9843-32e65691f23e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9a885bcb-bf7d-4667-b521-ff3ac2097f79",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6f96273-5092-4e91-a965-1df69b2baf30",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TapPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
