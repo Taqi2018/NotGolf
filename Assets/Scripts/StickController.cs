@@ -9,11 +9,7 @@ public class StickController : MonoBehaviour
      InputHub swipeInput;
      Vector2 initialPos;
      private bool isTouch;
-     private Quaternion rotationX;
      public float swipePowerMultiplier = 10f;
-
-     public Rigidbody golfBallRigidbody;
-
 
      public float SwipeForce { get; private set; }
 
