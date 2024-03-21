@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
      private Rigidbody rb;
-     private bool isHit = false;
+     public bool isHit = false;
      public StickController stickController;
 
 
@@ -39,6 +39,6 @@ public class BallController : MonoBehaviour
      {
           float force = stickController.SwipeForce;
           Debug.Log(force);
-          rb.AddForce(new Vector3(0, force/5, force/5), ForceMode.Impulse);
+          rb.AddForce(new Vector3(0, force, force), ForceMode.Impulse);
      }
 }
