@@ -9,7 +9,6 @@ using UnityEngine.InputSystem.Controls;
 public class StickController : MonoBehaviour
 {
      InputHub swipeInput;
-     public BallController ballController;
      public float startXAngle;
 
      Vector2 initialPos;
@@ -20,7 +19,8 @@ public class StickController : MonoBehaviour
      public float rotationSpeed;
      public float SwipeForce;
      public Touch Touch { get; private set; }
-
+     public bool isHit = false;
+     public float ballAngulardrag = 2f;
 
      // Start is called before the first frame update
      void Start()
@@ -30,6 +30,7 @@ public class StickController : MonoBehaviour
           swipeInput.BallSwipe.Tap.started += OnSwipeStart;
           swipeInput.BallSwipe.Tap.canceled += OnSwipeEnd;
           swipeInput.BallSwipe.TapPosition.started += OnTapPos;
+          swipeInput.BallSwipe.TapPosition.performed -= OnTapPosEnd;
           getTapPos = false;
 
      }
@@ -43,9 +44,16 @@ public class StickController : MonoBehaviour
           isTouch = true;
      }
 
+     private void OnTapPosEnd(InputAction.CallbackContext obj)
+     {
+          isTouch = false;
+     }
+
      private void OnSwipeEnd(InputAction.CallbackContext obj)
      {
           isTouch = false;
+          swipeInput.Disable();
+          swipeInput.Enable();
      }
 
      private void OnSwipeStart(InputAction.CallbackContext obj)
@@ -89,6 +97,29 @@ public class StickController : MonoBehaviour
                }
                initialPos = currentPos;
           }
+     }
+
+     private void OnTriggerEnter(Collider other)
+     {
+          if (other.CompareTag("GolfBall") && !isHit)
+          {
+               isHit = true;
+               Debug.Log("hit");
+               LaunchBall(other.attachedRigidbody);
+          }
+     }
+
+     void LaunchBall(Rigidbody rb)
+     {
+          float force = SwipeForce;
+          Debug.Log(force);
+          rb.AddForce(new Vector3(0, force/2 , force), ForceMode.Impulse);
+          rb.angularDrag = ballAngulardrag;
+     }
+
+     public void OnDestroy()
+     {
+          swipeInput.Disable();
      }
 }
 
