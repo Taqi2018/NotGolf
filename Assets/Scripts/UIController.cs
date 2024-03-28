@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
 {
      public void RestartGame()
      {
-          SceneManager.LoadScene("SmallCity3");
+          SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+          Debug.Log("Hello");
      }
 }

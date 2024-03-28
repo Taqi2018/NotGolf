@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/city3/SmallCity3.unity
     guid: 189f87f9a3ea14849aa6a62db00280e6
+  - enabled: 1
+    path: Assets/URBAN CITY PACKAGE/Demo Scene/Demo scene day.unity
+    guid: b669f4018f7a709488cfbcba1a31cf24
   m_configObjects: {}

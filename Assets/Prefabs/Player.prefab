@@ -82,9 +82,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startXAngle: 50
   swipePowerMultiplier: 1
-  rotationSpeed: 20
+  rotationSpeed: 10
   SwipeForce: 3
   isHit: 0
+  ballAngulardrag: 2
 --- !u!65 &1562262522871572934
 BoxCollider:
   m_ObjectHideFlags: 0
