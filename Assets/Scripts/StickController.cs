@@ -115,6 +115,7 @@ public class StickController : MonoBehaviour
           Debug.Log(force);
           rb.AddForce(new Vector3(0, force/2 , force), ForceMode.Impulse);
           rb.angularDrag = ballAngulardrag;
+          rb.angularVelocity = new Vector3(0f, 2f, 0f);
      }
 
      public void OnDestroy()
