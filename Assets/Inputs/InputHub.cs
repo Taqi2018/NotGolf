@@ -44,6 +44,15 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""JoyStick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""6e0e7024-27b0-43ff-a1f1-027c3e09d760"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
                     ""action"": ""TapPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2935c9e-75c4-4ad8-a5ed-809820baa063"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JoyStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
         m_BallSwipe = asset.FindActionMap("BallSwipe ", throwIfNotFound: true);
         m_BallSwipe_Tap = m_BallSwipe.FindAction("Tap", throwIfNotFound: true);
         m_BallSwipe_TapPosition = m_BallSwipe.FindAction("TapPosition", throwIfNotFound: true);
+        m_BallSwipe_JoyStick = m_BallSwipe.FindAction("JoyStick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
     private List<IBallSwipeActions> m_BallSwipeActionsCallbackInterfaces = new List<IBallSwipeActions>();
     private readonly InputAction m_BallSwipe_Tap;
     private readonly InputAction m_BallSwipe_TapPosition;
+    private readonly InputAction m_BallSwipe_JoyStick;
     public struct BallSwipeActions
     {
         private @InputHub m_Wrapper;
         public BallSwipeActions(@InputHub wrapper) { m_Wrapper = wrapper; }
         public InputAction @Tap => m_Wrapper.m_BallSwipe_Tap;
         public InputAction @TapPosition => m_Wrapper.m_BallSwipe_TapPosition;
+        public InputAction @JoyStick => m_Wrapper.m_BallSwipe_JoyStick;
         public InputActionMap Get() { return m_Wrapper.m_BallSwipe; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
             @TapPosition.started += instance.OnTapPosition;
             @TapPosition.performed += instance.OnTapPosition;
             @TapPosition.canceled += instance.OnTapPosition;
+            @JoyStick.started += instance.OnJoyStick;
+            @JoyStick.performed += instance.OnJoyStick;
+            @JoyStick.canceled += instance.OnJoyStick;
         }
 
         private void UnregisterCallbacks(IBallSwipeActions instance)
@@ -172,6 +198,9 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
             @TapPosition.started -= instance.OnTapPosition;
             @TapPosition.performed -= instance.OnTapPosition;
             @TapPosition.canceled -= instance.OnTapPosition;
+            @JoyStick.started -= instance.OnJoyStick;
+            @JoyStick.performed -= instance.OnJoyStick;
+            @JoyStick.canceled -= instance.OnJoyStick;
         }
 
         public void RemoveCallbacks(IBallSwipeActions instance)
@@ -193,5 +222,6 @@ public partial class @InputHub: IInputActionCollection2, IDisposable
     {
         void OnTap(InputAction.CallbackContext context);
         void OnTapPosition(InputAction.CallbackContext context);
+        void OnJoyStick(InputAction.CallbackContext context);
     }
 }
