@@ -7,8 +7,10 @@ public class MoneyManager : MonoBehaviour
     public float moneyPerMeter = 1f; // Adjust this value based on how much money you want to give per meter traveled
     public float distanceScaleFactor = 50f; // Adjust this value based on the speed of your game
 
+    public static MoneyManager instance;
     void Start()
     {
+        instance = this;
         lastZPosition = transform.position.z;
     }
 
@@ -24,8 +26,8 @@ public class MoneyManager : MonoBehaviour
         int moneyEarned = Mathf.RoundToInt(scaledDistanceTraveled * moneyPerMeter);
 
         // Add the earned money to the existing money value in PlayerPrefs
-        int currentMoney = PlayerPrefs.GetInt("Money", 0);
-        PlayerPrefs.SetInt("Money", currentMoney + moneyEarned);
+        PlayerPrefs.GetInt("Money", 0);
+        SetMoneyPlayerPrefValue(moneyEarned);
 
         // Save PlayerPrefs
         PlayerPrefs.Save();
@@ -33,4 +35,12 @@ public class MoneyManager : MonoBehaviour
         // Update lastZPosition for the next frame
         lastZPosition = transform.position.z;
     }
+
+    public void SetMoneyPlayerPrefValue(int money)
+    {
+        PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money", 0) + money);
+    }
+
+
 }
+

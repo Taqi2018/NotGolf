@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Controls;
 
 public class StickController : MonoBehaviour
 {
-     InputHub swipeInput;
+    public  InputHub swipeInput;
      public float startXAngle;
 
      Vector2 initialPos;
@@ -22,10 +22,14 @@ public class StickController : MonoBehaviour
      public bool isHit = false;
      public float ballAngulardrag = 2f;
     private Vector2 joyStickMovement;
+    public static EventHandler OnBallLaunched;
+
+    public static StickController instance;
 
     // Start is called before the first frame update
     void Start()
      {
+
           swipeInput = new InputHub();
           swipeInput.Enable();
           swipeInput.BallSwipe.Tap.started += OnSwipeStart;
@@ -33,10 +37,11 @@ public class StickController : MonoBehaviour
           swipeInput.BallSwipe.TapPosition.started += OnTapPos;
           swipeInput.BallSwipe.TapPosition.performed -= OnTapPosEnd;
 
-
+        instance = this;
 
 
           getTapPos = false;
+        isTouch = false;
 
      }
 
@@ -87,7 +92,7 @@ public class StickController : MonoBehaviour
         }
 
 
-       Debug.Log( swipeInput.FindAction("Joystick").ReadValue<Vector2>());
+  
           if (isTouch & joyStickMovement==Vector2.zero)
           {
                Vector2 currentPos = swipeInput.BallSwipe.TapPosition.ReadValue<Vector2>();
@@ -136,21 +141,24 @@ public class StickController : MonoBehaviour
 
      private void OnTriggerEnter(Collider other)
      {
-          if (other.CompareTag("GolfBall") && !isHit)
+          if (other.CompareTag("GolfBall") && !isHit && isTouch)
           {
                isHit = true;
                Debug.Log("hit");
-               LaunchBall(other.attachedRigidbody);
+            OnBallLaunched?.Invoke(this, EventArgs.Empty);
+            LaunchBall(other.attachedRigidbody);
           }
      }
 
      void LaunchBall(Rigidbody rb)
      {
-         /* float force = SwipeForce;*/
-    /*      Debug.Log(force);*/
-          rb.AddForce(new Vector3(SwipeForce.x, SwipeForce.y/2 , SwipeForce.z), ForceMode.Impulse);
+        float stickForce = PlayerPrefs.GetFloat("Power", 0.5f); 
+      
+        rb.AddForce(new Vector3(SwipeForce.x * PlayerPrefs.GetFloat("Power", 0.5f), SwipeForce.y/2 * PlayerPrefs.GetFloat("Power", 0.5f), SwipeForce.z * PlayerPrefs.GetFloat("Power", 0.5f)), ForceMode.Impulse);
           rb.angularDrag = ballAngulardrag;
           rb.angularVelocity = new Vector3(0f, 2f, 0f);
+
+       
      }
 
      public void OnDestroy()

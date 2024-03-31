@@ -8,6 +8,9 @@ public class UIController : MonoBehaviour
 {
 
      public Text currencyText;
+    public GameObject upgradePanel,ballPanel,teePanel,stickPanel;
+
+
      public void RestartGame()
      {
           SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -19,4 +22,41 @@ public class UIController : MonoBehaviour
      {
           currencyText.text = PlayerPrefs.GetInt("Money", 0).ToString();
      }
+
+    public void OpenUpgradePanel()
+    {
+        upgradePanel.SetActive(true);
+    }
+
+    public void CloseUpgradePanel()
+    {
+        upgradePanel.SetActive(false);
+    }
+
+    public void OpenBallPanel()
+    {
+        ballPanel.SetActive(true);
+    }
+    public void CloseBallPanel()
+    {
+        ballPanel.SetActive(false);
+    }
+
+    public void OpenTeePanel()
+    {
+        teePanel.SetActive(true);
+    }
+    public void CloseTeePanel()
+    {
+        teePanel.SetActive(false);
+    }
+    public void OpenStickPanel()
+    {
+        stickPanel.SetActive(true);
+    }
+    public void CloseStickPanel()
+    {
+        stickPanel.SetActive(false);
+    }
+
 }
