@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
 {
 
      public Text currencyText;
-    public GameObject upgradePanel,ballPanel,teePanel,stickPanel;
+    public GameObject upgradePanel,ballPanel,teePanel,stickPanel,MainMenuPanel;
 
 
      public void RestartGame()
@@ -58,5 +58,20 @@ public class UIController : MonoBehaviour
     {
         stickPanel.SetActive(false);
     }
+
+     public void QuitGame()
+     {
+          Application.Quit();
+     }
+
+     public void PlayGame()
+     {
+          MainMenuPanel.SetActive(false);
+     }
+
+     public void PauseGame()
+     {
+          MainMenuPanel.SetActive(true);
+     }
 
 }
